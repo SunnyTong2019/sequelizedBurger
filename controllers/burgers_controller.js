@@ -3,9 +3,16 @@ var db = require("../models");
 module.exports = function (app) {
 
     app.get("/", function (req, res) {
-        db.Burger.findAll({}).then(function (data) {
+       
+        db.Burger.findAll({
+            include: [{  // inner join Customer model
+                model: db.Customer,
+                required: true
+            }]
+        }).then(function (data) {
             res.render("index", { burgers: data });
         });
+
     });
 
 
@@ -36,7 +43,7 @@ module.exports = function (app) {
 
 
     app.post("/api/customers", function (req, res) {
-        
+
         // Find a row that matches the query, or create the row if none is found 
         db.Customer.findOrCreate({ where: { customer_name: req.body.customer_name } }).then(function (result) {
             // return the id of the customer found or created

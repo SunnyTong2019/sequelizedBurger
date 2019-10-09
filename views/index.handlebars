@@ -24,7 +24,7 @@
         <ul>
             {{#each burgers}}
             {{#if devoured}}
-            <p>{{this.id}}. {{this.burger_name}}</p>
+            <p>{{this.id}}. {{this.burger_name}}   (Eatten by {{this.Customer.customer_name}})</p>
             {{/if}}
             {{/each}}
         </ul>
