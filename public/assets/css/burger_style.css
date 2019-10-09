@@ -1,0 +1,56 @@
+body { 
+    background-color: Moccasin;
+    text-align: center;
+}
+
+h1 {
+    color: red;
+}
+
+#allBurgers {
+    display: table;
+    margin: 0 auto;
+    width: 660px;
+}
+
+#nonDevoured {
+    display: table-cell;
+    width: 50%;
+}
+
+#devoured {
+   display: table-cell;
+   width: 50%;
+   text-align: left;
+   color: gainsboro;
+}
+
+.newBurger {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.devourBurger {
+    padding: 5px 10px;
+    margin-left: 20px;
+}
+
+#devoured p {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid gainsboro;
+    margin: 0;
+}
+
+textarea {
+    width: 300px;
+    height: 70px;
+}
+
+#submit {
+    background-color:DodgerBlue ;
+    color: white;
+    padding: 8px 10px;
+    margin-top: 10px;
+}
