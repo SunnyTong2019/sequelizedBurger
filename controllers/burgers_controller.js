@@ -17,10 +17,12 @@ module.exports = function (app) {
 
 
     app.put("/api/burgers/:id", function (req, res) {
-  
+
         db.Burger.update(
-            { devoured: true,
-              CustomerId: req.body.CustomerId },
+            {
+                devoured: true,
+                CustomerId: req.body.CustomerId
+            },
             { where: { id: req.params.id } }
         ).then(function (result) {
             // result is an array containing a number 1
@@ -31,11 +33,14 @@ module.exports = function (app) {
             }
         });
     });
-    
+
+
     app.post("/api/customers", function (req, res) {
-        db.Customer.create(req.body).then(function (result) {
-            // return the id of the newly created customer
-            res.json(result.dataValues.id)
+        
+        // Find a row that matches the query, or create the row if none is found 
+        db.Customer.findOrCreate({ where: { customer_name: req.body.customer_name } }).then(function (result) {
+            // return the id of the customer found or created
+            res.json(result[0].dataValues.id)
         });
     });
 

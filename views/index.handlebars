@@ -73,26 +73,31 @@
         var id = $(this).data("burgerid");
         var customer = $("#customerDevourBurger [name=customer]").val().trim();
 
-        var newCustomer = {
-            customer_name: customer,
-        };
+        if (!customer) {
+            alert("Please enter a customer!");
+        } else {
+            var newCustomer = {
+                customer_name: customer,
+            };
 
-        $.ajax("/api/customers", {
-            type: "POST",
-            data: newCustomer
-        }).then(
-            function (result) {
-                // send a put request for updating Burgers table
-                $.ajax("/api/burgers/" + id, {
-                    type: "PUT",
-                    data: { CustomerId: result }
-                }).then(
-                    function (results) {
-                        location.reload();
-                    }
-                );
-            }
-        );
+            $.ajax("/api/customers", {
+                type: "POST",
+                data: newCustomer
+            }).then(
+                function (result) {
+
+                    // send a put request for updating Burgers table
+                    $.ajax("/api/burgers/" + id, {
+                        type: "PUT",
+                        data: { CustomerId: result }
+                    }).then(
+                        function (results) {
+                            location.reload();
+                        }
+                    );
+                }
+            );
+        }
     });
 
 </script>
