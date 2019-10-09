@@ -17,15 +17,25 @@ module.exports = function (app) {
 
 
     app.put("/api/burgers/:id", function (req, res) {
+  
         db.Burger.update(
-            { devoured: true },
+            { devoured: true,
+              CustomerId: req.body.CustomerId },
             { where: { id: req.params.id } }
         ).then(function (result) {
-            if (result.changedRows == 0) {
+            // result is an array containing a number 1
+            if (result[0] !== 1) {
                 return res.status(404).end();
             } else {
                 res.status(200).end();
             }
+        });
+    });
+    
+    app.post("/api/customers", function (req, res) {
+        db.Customer.create(req.body).then(function (result) {
+            // return the id of the newly created customer
+            res.json(result.dataValues.id)
         });
     });
 

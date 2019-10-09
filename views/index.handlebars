@@ -10,7 +10,10 @@
             {{#unless devoured}}
             <div class="newBurger">
                 {{this.id}}. {{this.burger_name}}
-                <button data-burgerid="{{this.id}}" class="devourBurger">Devour It !</button>
+                <form id="customerDevourBurger">
+                    <input type="text" name="customer" placeholder="Customer?"></input>
+                    <button type="submit" data-burgerid="{{this.id}}" class="devourBurger">Devour It !</button>
+                </form>
             </div>
             {{/unless}}
             {{/each}}
@@ -65,13 +68,29 @@
 
     $(".devourBurger").on("click", function (event) {
 
-        var id = $(this).data("burgerid");
+        event.preventDefault();
 
-        $.ajax("/api/burgers/" + id, {
-            type: "PUT"
+        var id = $(this).data("burgerid");
+        var customer = $("#customerDevourBurger [name=customer]").val().trim();
+
+        var newCustomer = {
+            customer_name: customer,
+        };
+
+        $.ajax("/api/customers", {
+            type: "POST",
+            data: newCustomer
         }).then(
-            function () {
-                location.reload();
+            function (result) {
+                // send a put request for updating Burgers table
+                $.ajax("/api/burgers/" + id, {
+                    type: "PUT",
+                    data: { CustomerId: result }
+                }).then(
+                    function (results) {
+                        location.reload();
+                    }
+                );
             }
         );
     });
