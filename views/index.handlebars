@@ -24,7 +24,7 @@
         <ul>
             {{#each burgers}}
             {{#if devoured}}
-            <p>{{this.id}}. {{this.burger_name}}   (Eatten by {{this.Customer.customer_name}})</p>
+            <p>{{this.id}}. {{this.burger_name}} (Eatten by {{this.Customer.customer_name}})</p>
             {{/if}}
             {{/each}}
         </ul>
@@ -47,22 +47,18 @@
 
         var burger = $("#addBurger [name=burger]").val().trim();
 
-        if (!burger) {
-            alert("Please enter a burger!");
-        } else {
-            var newBurger = {
-                burger: burger
-            };
+        var newBurger = {
+            burger: burger
+        };
 
-            $.ajax("/api/burgers", {
-                type: "POST",
-                data: newBurger
-            }).then(
-                function () {
-                    location.reload();
-                }
-            );
-        }
+        $.ajax("/api/burgers", {
+            type: "POST",
+            data: newBurger
+        }).then(
+            function () {
+                location.reload();
+            }
+        );
     });
 
 
@@ -71,33 +67,29 @@
         event.preventDefault();
 
         var id = $(this).data("burgerid");
-        var customer = $("#customerFormFor"+ id + " [name=customer]").val().trim();
+        var customer = $("#customerFormFor" + id + " [name=customer]").val().trim();
 
-        if (!customer) {
-            alert("Please enter a customer!");
-        } else {
-            var newCustomer = {
-                customer_name: customer,
-            };
+        var newCustomer = {
+            customer_name: customer,
+        };
 
-            $.ajax("/api/customers", {
-                type: "POST",
-                data: newCustomer
-            }).then(
-                function (result) {
-
-                    // send a put request for updating Burgers table
-                    $.ajax("/api/burgers/" + id, {
-                        type: "PUT",
-                        data: { CustomerId: result }
-                    }).then(
-                        function (results) {
-                            location.reload();
-                        }
-                    );
-                }
-            );
-        }
+        $.ajax("/api/customers", {
+            type: "POST",
+            data: newCustomer
+        }).then(
+            function (result) {
+                // once the customer is found or created, result will have the customer's id
+                // then send a put request for updating Burgers table
+                $.ajax("/api/burgers/" + id, {
+                    type: "PUT",
+                    data: { CustomerId: result }
+                }).then(
+                    function (results) {
+                        location.reload();
+                    }
+                );
+            }
+        );
     });
 
 </script>
