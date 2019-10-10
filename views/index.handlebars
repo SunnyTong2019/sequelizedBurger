@@ -10,7 +10,7 @@
             {{#unless devoured}}
             <div class="newBurger">
                 {{this.id}}. {{this.burger_name}}
-                <form id="customerFormFor{{this.id}}">
+                <form id="customerFormFor{{this.id}}" class="customerForm">
                     <input type="text" name="customer" placeholder="Customer?"></input>
                     <button type="submit" data-burgerid="{{this.id}}" class="devourBurger">Devour It !</button>
                 </form>
@@ -24,7 +24,7 @@
         <ul>
             {{#each burgers}}
             {{#if devoured}}
-            <p>{{this.id}}. {{this.burger_name}} (Eatten by {{this.Customer.customer_name}})</p>
+            <p>{{this.id}}. {{this.burger_name}} (Eaten by {{this.Customer.customer_name}})</p>
             {{/if}}
             {{/each}}
         </ul>
@@ -36,7 +36,7 @@
     <textarea type="text" name="burger"></textarea>
     <br>
     <button type="submit" id="submit">Submit</button>
-    <p>Enter a burger you want to eat and submit.</p>
+    <p id="userMessage">Enter a burger you want to eat and submit.</p>
 </form>
 
 <script type="text/javascript">
