@@ -3,12 +3,16 @@ var db = require("../models");
 module.exports = function (app) {
 
     app.get("/", function (req, res) {
-       
+
         db.Burger.findAll({
-            include: [{  // inner join Customer model
+            include: [{
+                // left join Customer model; 
+                // if required is set to true, it will be a inner join.
+                // We don't need inner join as when a new burger is created, it won't have a customer yet
                 model: db.Customer,
-                required: true
-            }]
+                required: false
+            }],
+            order: ['id']
         }).then(function (data) {
             res.render("index", { burgers: data });
         });

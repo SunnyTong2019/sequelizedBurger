@@ -10,7 +10,7 @@
             {{#unless devoured}}
             <div class="newBurger">
                 {{this.id}}. {{this.burger_name}}
-                <form id="customerDevourBurger">
+                <form id="customerFormFor{{this.id}}">
                     <input type="text" name="customer" placeholder="Customer?"></input>
                     <button type="submit" data-burgerid="{{this.id}}" class="devourBurger">Devour It !</button>
                 </form>
@@ -66,12 +66,12 @@
     });
 
 
-    $(".devourBurger").on("click", function (event) {
+    $(document).on("click", ".devourBurger", function (event) {
 
         event.preventDefault();
 
         var id = $(this).data("burgerid");
-        var customer = $("#customerDevourBurger [name=customer]").val().trim();
+        var customer = $("#customerFormFor"+ id + " [name=customer]").val().trim();
 
         if (!customer) {
             alert("Please enter a customer!");
