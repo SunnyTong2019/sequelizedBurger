@@ -19,6 +19,10 @@ It is created using Node.js with below npm packages:
 https://agile-beyond-23650.herokuapp.com/
 
 
+## Motivation
+The purpose of this project was to practice CRUD in a full stack application using Sequelize.
+
+
 ## Contributor
 The app is developed by [SunnyTong2019](https://github.com/SunnyTong2019).
 
